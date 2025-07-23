@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Стройка 2025 — Стеклянный дизайн</title>
+<title>Стройка 2025 — Футуристичный дизайн</title>
 
 <!-- Подключение шрифта Manrope с Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,20 +12,19 @@
 
 <style>
     :root {
-        /* Обновленная палитра для стеклянного дизайна */
-        --text-primary: #1d1d1f;
-        --text-secondary: #3c3c3e;
-        --card-bg: rgba(255, 255, 255, 0.45); /* Полупрозрачный белый для стекла */
-        --card-border-color: rgba(255, 255, 255, 0.5);
-        --dev-bg-gradient: linear-gradient(to bottom, rgba(42, 141, 255, 0.8), rgba(10, 132, 255, 0.7));
-        --client-bg: rgba(229, 229, 234, 0.8);
+        /* Новая палитра в стиле референса */
+        --accent-color: #d1ff4c; /* Яркий лаймовый */
+        --dark-bg: #121212;
+        --light-bg: #f3f4f6;
+        --text-primary-dark: #ffffff;
+        --text-primary-light: #121212;
+        --text-secondary: #a0a0a0;
+        --card-border-color: rgba(255, 255, 255, 0.1);
     }
 
     body {
         font-family: 'Manrope', sans-serif;
-        /* Яркий, динамичный фон — основа для Glassmorphism */
-        background: #f3f4f8;
-        background-image: linear-gradient(125deg, #e0c3fc 0%, #8ec5fc 100%);
+        background-color: var(--light-bg);
         display: flex;
         justify-content: center;
         align-items: flex-start;
@@ -35,38 +34,12 @@
         box-sizing: border-box;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        overflow: hidden; /* Скрываем выход аур за пределы экрана */
-        position: relative;
-    }
-    
-    /* Декоративные "ауры" на фоне для создания цветовых пятен */
-    .aura {
-        position: fixed;
-        border-radius: 50%;
-        filter: blur(150px);
-        opacity: 0.6;
-        z-index: -1;
-    }
-    .aura1 {
-        width: 600px;
-        height: 600px;
-        background: #ffafbd;
-        top: -200px;
-        left: -200px;
-    }
-    .aura2 {
-        width: 500px;
-        height: 500px;
-        background: #a2d2ff;
-        bottom: -150px;
-        right: -150px;
     }
 
     .main-container {
         width: 100%;
         max-width: 520px;
         transition: max-width 0.5s ease;
-        z-index: 1;
     }
 
     .content-wrapper {
@@ -75,93 +48,122 @@
         width: 100%;
     }
     
-    /* --- Стили карточки и чата в стиле Glassmorphism --- */
+    /* --- Новые стили для карточек --- */
     .card, .chat-widget {
-        background: var(--card-bg);
-        -webkit-backdrop-filter: blur(20px); /* Размытие фона для Safari */
-        backdrop-filter: blur(20px);       /* Стандартное свойство */
-        border-radius: 30px;
-        border: 1px solid var(--card-border-color);
+        border-radius: 28px;
         padding: 25px;
-        /* Мягкая тень для ощущения глубины */
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
         opacity: 0;
         transform: translateY(20px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
     }
 
+    /* Главная карточка (черная) */
     .card {
+        background-color: var(--dark-bg);
+        color: var(--text-primary-dark);
         margin-bottom: 40px;
         animation: slideInFade 1s cubic-bezier(0.19, 1, 0.22, 1) 0.2s forwards;
+        border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
+    /* Виджет чата (лаймовый) */
     .chat-widget {
-        padding: 25px;
+        background-color: var(--accent-color);
+        color: var(--text-primary-light);
         animation: slideInFade 1s cubic-bezier(0.19, 1, 0.22, 1) 0.4s forwards;
     }
     
     @keyframes slideInFade { to { opacity: 1; transform: translateY(0); } }
     
-    .card img { width: 100%; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-    .card h1 { font-size: 44px; font-weight: 800; margin: 25px 0 15px; color: var(--text-primary); line-height: 1.15; }
+    /* Новое изображение в стиле "хром" */
+    .card img { 
+        width: 100%; 
+        border-radius: 18px; 
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+    }
+    
+    .card h1 { 
+        font-size: 40px; 
+        font-weight: 800; 
+        margin: 25px 0 15px; 
+        line-height: 1.2; 
+    }
     
     .card .subtitle {
-        background: rgba(255, 255, 255, 0.3);
-        color: var(--text-secondary);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--accent-color);
         padding: 8px 16px;
-        border-radius: 14px;
+        border-radius: 100px;
         display: inline-block;
         font-size: 14px;
         font-weight: 600;
         margin-bottom: 25px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .card p { font-size: 17px; line-height: 1.65; color: var(--text-secondary); font-weight: 500; margin-bottom: 30px; }
+    .card p { 
+        font-size: 16px; 
+        line-height: 1.6; 
+        color: var(--text-secondary); 
+        font-weight: 400; 
+        margin-bottom: 30px; 
+    }
 
     .card .button {
-        display: block;
-        background-color: rgba(29, 29, 31, 0.8); /* Полупрозрачная темная кнопка */
-        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background-color: var(--accent-color);
+        color: var(--text-primary-light);
         text-align: center;
         padding: 18px;
-        border-radius: 20px;
+        border-radius: 16px;
         text-decoration: none;
         font-size: 17px;
         font-weight: 600;
         transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
     }
-    .card .button:hover { transform: scale(1.04); background-color: rgba(29, 29, 31, 0.95); }
+    .card .button:hover { transform: scale(1.04); filter: brightness(1.1); }
+    .card .button .arrow { transition: transform 0.25s ease; }
+    .card .button:hover .arrow { transform: translateX(4px); }
     
-    .chat-widget h2 { font-size: 32px; font-weight: 800; text-align: left; margin-top: 0; margin-bottom: 30px; color: var(--text-primary); padding-left: 5px; }
-    .chat-container { display: flex; flex-direction: column; gap: 20px; }
+    /* Стили чата */
+    .chat-widget h2 { 
+        font-size: 32px; 
+        font-weight: 800; 
+        margin-top: 0; 
+        margin-bottom: 30px; 
+        padding-left: 5px; 
+    }
     
-    .message-wrapper { display: flex; gap: 12px; opacity: 0; transform: scale(0.9); animation: message-appear 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards; align-items: flex-end; }
+    .chat-container { display: flex; flex-direction: column; gap: 15px; }
+    .message-wrapper { display: flex; gap: 12px; opacity: 0; transform: scale(0.95); animation: message-appear 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards; align-items: flex-end; }
     @keyframes message-appear { to { opacity: 1; transform: scale(1); } }
     
     .avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px; flex-shrink: 0; }
-    .avatar.client { background-color: #dcdce0; color: var(--text-primary); }
-    .avatar.developer { background-color: #005bb5; color: white; }
+    .avatar.client { background-color: #fff; color: #000; }
+    .avatar.developer { background-color: #000; color: #fff; }
 
     .message-content { display: flex; flex-direction: column; max-width: 85%; }
     .message { padding: 14px 20px; border-radius: 22px; line-height: 1.5; font-size: 17px; font-weight: 500; }
-    .timestamp { font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-top: 10px; opacity: 0; transform: translateY(5px); transition: opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s; }
-    .message-wrapper.visible .timestamp { opacity: 1; transform: translateY(0); }
+    .timestamp { font-size: 12px; font-weight: 600; color: rgba(0,0,0,0.5); margin-top: 10px; opacity: 0; transition: opacity 0.4s ease 0.3s; }
+    .message-wrapper.visible .timestamp { opacity: 1; }
     
     .message-wrapper.client { justify-content: flex-start; }
-    .message.client { background: var(--client-bg); color: var(--text-primary); border-bottom-left-radius: 8px; }
+    .message.client { background-color: #fff; color: var(--text-primary-light); border-bottom-left-radius: 8px; }
     .message-content.client { align-items: flex-start; }
     .message-wrapper.client .timestamp { margin-left: 15px; }
 
     .message-wrapper.developer { flex-direction: row-reverse; }
-    .message.developer { background: var(--dev-bg-gradient); color: #ffffff; border-bottom-right-radius: 8px; }
+    .message.developer { background-color: var(--dark-bg); color: #fff; border-bottom-right-radius: 8px; }
     .message-content.developer { align-items: flex-end; }
     .message-wrapper.developer .timestamp { margin-right: 15px; }
 
     .typing-effect { white-space: pre-wrap; }
-    .typing-cursor { display: inline-block; width: 2px; height: 1.1em; background-color: #0a84ff; border-radius: 1px; animation: blink 1s infinite; margin-left: 1px; vertical-align: -2px; }
-    .message.client .typing-cursor { background-color: #a0a0a5; }
+    .typing-cursor { display: inline-block; width: 2px; height: 1.1em; background-color: #fff; border-radius: 1px; animation: blink 1s infinite; margin-left: 1px; vertical-align: -2px; }
+    .message.client .typing-cursor { background-color: #333; }
     @keyframes blink { 50% { opacity: 0; } }
 
     /* ================================================= */
@@ -180,24 +182,23 @@
 </head>
 <body>
 
-<!-- Декоративные фоновые элементы -->
-<div class="aura aura1"></div>
-<div class="aura aura2"></div>
-
 <div class="main-container">
     <div class="content-wrapper">
         <div class="card">
-            <img src="https://i.ibb.co/6y40g38/image.png" alt="Современный загородный дом">
+            <!-- Заменил изображение на абстрактный хром -->
+            <img src="https://i.ibb.co/L5rCqfM/chrome-abstract.jpg" alt="Абстрактная хромированная фигура">
             <h1>Стройка 2025</h1>
             <div class="subtitle">Как это началось</div>
             <p>Строительство дома началось в 2023 году. Был создан архитектурный проект, учтены все особенности. Летом того же года начались строительные работы.</p>
-            <a href="#" class="button">Перейти к полному чтению</a>
+            <a href="#" class="button">
+                <span>Перейти к проекту</span>
+                <span class="arrow">→</span>
+            </a>
         </div>
 
         <div class="chat-widget" id="chat-widget">
             <h2>Разработка проекта</h2>
             <div class="chat-container">
-                 <!-- Сообщения чата -->
                 <div id="msg1" class="message-wrapper client" style="visibility: hidden;">
                     <div class="avatar client">К</div>
                     <div class="message-content client">
