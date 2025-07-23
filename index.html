@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Строка 2025 — Презентабельный дизайн</title>
+
+<!-- Подключение шрифта Manrope с Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --client-bg: #e5e5ea;
+        --dev-bg: #0a84ff;
+        --dev-bg-gradient: linear-gradient(to bottom, #2a8dff, #0a84ff);
+        --text-primary: #1d1d1f;
+        --text-secondary: #86868b;
+        --bg-color: #f5f5f7;
+        --card-bg: #ffffff;
+        --border-color: rgba(0, 0, 0, 0.08);
+    }
+
+    body {
+        font-family: 'Manrope', sans-serif;
+        background-color: var(--bg-color);
+        /* Улучшенный фон с градиентом и едва заметной текстурой шума для премиальности */
+        background-image: 
+            radial-gradient(circle, #f9f9f9, #f0f0f2),
+            url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise" x="0" y="0"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%" height="100%" filter="url(%23noise)" opacity="0.02"/%3E%3C/svg%3E');
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        margin: 0;
+        padding: 40px 15px;
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .main-container {
+        width: 100%;
+        max-width: 520px;
+        transition: max-width 0.5s ease; /* Плавный переход ширины */
+    }
+
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    /* --- Стили карточки и чата по умолчанию (Mobile First) --- */
+    .card, .chat-widget {
+        background-color: var(--card-bg);
+        border-radius: 30px;
+        border: 1px solid var(--border-color);
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05), 0 15px 50px rgba(0, 0, 0, 0.08);
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    .card {
+        margin-bottom: 40px;
+        animation: slideInFade 1s cubic-bezier(0.19, 1, 0.22, 1) 0.2s forwards;
+    }
+
+    .chat-widget {
+        padding: 25px;
+        animation: slideInFade 1s cubic-bezier(0.19, 1, 0.22, 1) 0.4s forwards;
+    }
+    
+    @keyframes slideInFade {
+        to { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+    }
+    
+    .card img {
+        width: 100%;
+        border-radius: 20px;
+    }
+
+    .card h1 {
+        font-size: 44px;
+        font-weight: 800;
+        margin: 25px 0 15px;
+        color: var(--text-primary);
+        line-height: 1.15;
+    }
+    
+    .card .subtitle, .chat-widget .subtitle {
+        background-color: #f0f0f0;
+        color: #555;
+        padding: 8px 16px;
+        border-radius: 14px;
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 25px;
+    }
+
+    .card p {
+        font-size: 17px;
+        line-height: 1.65;
+        color: #3c3c3e;
+        margin-bottom: 30px;
+    }
+
+    .card .button {
+        display: block;
+        background-color: var(--text-primary);
+        color: var(--card-bg);
+        text-align: center;
+        padding: 18px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-size: 17px;
+        font-weight: 600;
+        transition: transform 0.25s cubic-bezier(0.19, 1, 0.22, 1), filter 0.25s;
+    }
+
+    .card .button:hover {
+        transform: scale(1.04);
+        filter: brightness(1.15);
+    }
+    
+    .chat-widget h2 {
+        font-size: 32px;
+        font-weight: 800;
+        text-align: left;
+        margin-top: 0;
+        margin-bottom: 30px;
+        color: var(--text-primary);
+        padding-left: 5px;
+    }
+
+    .chat-container { display: flex; flex-direction: column; gap: 20px; }
+    .message-wrapper { display: flex; gap: 12px; opacity: 0; transform: scale(0.9); animation: message-appear 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards; align-items: flex-end; }
+    @keyframes message-appear { to { opacity: 1; transform: scale(1); } }
+    
+    .avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px; flex-shrink: 0; }
+    .avatar.client { background-color: #dcdce0; color: var(--text-primary); }
+    .avatar.developer { background-color: #005bb5; color: white; }
+
+    .message-content { display: flex; flex-direction: column; max-width: 85%; }
+    .message { padding: 14px 20px; border-radius: 22px; line-height: 1.5; font-size: 17px; font-weight: 400; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); }
+    .timestamp { font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-top: 10px; opacity: 0; transform: translateY(5px); transition: opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s; }
+    .message-wrapper.visible .timestamp { opacity: 1; transform: translateY(0); }
+    
+    .message-wrapper.client { justify-content: flex-start; }
+    .message.client { background-color: var(--client-bg); color: var(--text-primary); border-bottom-left-radius: 8px; }
+    .message-content.client { align-items: flex-start; }
+    .message-wrapper.client .timestamp { margin-left: 15px; }
+
+    .message-wrapper.developer { flex-direction: row-reverse; }
+    .message.developer { background: var(--dev-bg-gradient); color: #ffffff; border-bottom-right-radius: 8px; }
+    .message-content.developer { align-items: flex-end; }
+    .message-wrapper.developer .timestamp { margin-right: 15px; }
+
+    .typing-effect { white-space: pre-wrap; }
+    .typing-cursor { display: inline-block; width: 2px; height: 1.1em; background-color: var(--dev-bg); border-radius: 1px; animation: blink 1s infinite; margin-left: 1px; vertical-align: -2px; }
+    .message.client .typing-cursor { background-color: #a0a0a5; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ================================================= */
+    /* === Стили для десктопов (экраны шире 992px) === */
+    /* ================================================= */
+    @media (min-width: 992px) {
+        .main-container {
+            max-width: 1100px; /* Увеличиваем максимальную ширину контейнера */
+        }
+        
+        .content-wrapper {
+            flex-direction: row; /* Переключаемся на горизонтальный макет */
+            align-items: flex-start; /* Выравниваем колонки по верху */
+            gap: 40px; /* Пространство между колонками */
+        }
+
+        .card {
+            flex: 1.1; /* Карточка чуть шире чата для акцента */
+            margin-bottom: 0; /* Убираем нижний отступ, т.к. есть gap */
+            transform: translateX(-30px); /* Начальное положение для анимации */
+            animation: slideInFromLeft 1s cubic-bezier(0.19, 1, 0.22, 1) 0.2s forwards;
+        }
+
+        .chat-widget {
+            flex: 1; /* Чат занимает оставшееся место */
+            position: sticky; /* Делаем чат "липким" при прокрутке */
+            top: 40px;
+            transform: translateX(30px); /* Начальное положение для анимации */
+            animation: slideInFromRight 1s cubic-bezier(0.19, 1, 0.22, 1) 0.4s forwards;
+        }
+        
+        /* Улучшенные анимации для десктопа */
+        @keyframes slideInFromLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        @keyframes slideInFromRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="main-container">
+    <div class="content-wrapper">
+        <div class="card">
+            <img src="https://i.ibb.co/6y40g38/image.png" alt="Современный загородный дом">
+            <h1>Строка 2025</h1>
+            <div class="subtitle">Как это началось</div>
+            <p>Строительство дома началось в 2023 году. Был создан архитектурный проект, учтены все особенности. Летом того же года начались строительные работы.</p>
+            <a href="#" class="button">Перейти к полному чтению</a>
+        </div>
+
+        <div class="chat-widget" id="chat-widget">
+            <h2>Разработка проекта</h2>
+            <div class="chat-container">
+                 <!-- Сообщение 1 -->
+                <div id="msg1" class="message-wrapper client" style="visibility: hidden;">
+                    <div class="avatar client">К</div>
+                    <div class="message-content client">
+                        <div class="message client"><span class="typing-effect"></span></div>
+                        <div class="timestamp">Сегодня</div>
+                    </div>
+                </div>
+                <!-- Сообщение 2 -->
+                 <div id="msg2" class="message-wrapper developer" style="visibility: hidden;">
+                    <div class="avatar developer">Р</div>
+                    <div class="message-content developer">
+                        <div class="message developer"><span class="typing-effect"></span></div>
+                        <div class="timestamp">Сегодня</div>
+                    </div>
+                </div>
+                <!-- Сообщение 3 -->
+                 <div id="msg3" class="message-wrapper client" style="visibility: hidden;">
+                    <div class="avatar client">К</div>
+                     <div class="message-content client">
+                        <div class="message client"><span class="typing-effect"></span></div>
+                        <div class="timestamp">Сегодня</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const messages = [
+        { id: 'msg1', text: 'Я хочу в доме бассейн, теплый пол, сауну, баскетбольное кольцо, мангальную зону и волейбольную площадку🙂...', delay: 500, speed: 30 },
+        { id: 'msg2', text: 'Все будет сделано в лучшем виде!👍', delay: 800, speed: 35 },
+        { id: 'msg3', text: 'Да ладно😧', delay: 600, speed: 45 }
+    ];
+
+    function typeMessage(element, text, speed, callback) {
+        let i = 0;
+        element.innerHTML = '<span class="typing-cursor"></span>';
+        const cursor = element.querySelector('.typing-cursor');
+        
+        const typingInterval = setInterval(() => {
+            if (i < text.length) {
+                cursor.insertAdjacentText('beforebegin', text.charAt(i));
+                i++;
+            } else {
+                clearInterval(typingInterval);
+                setTimeout(() => cursor?.remove(), 300);
+                if (callback) callback();
+            }
+        }, speed);
+    }
+
+    async function showMessages() {
+        for (let i = 0; i < messages.length; i++) {
+            await new Promise(resolve => setTimeout(resolve, messages[i].delay));
+            
+            const msgWrapper = document.getElementById(messages[i].id);
+            if (!msgWrapper) continue;
+            
+            const msgElement = msgWrapper.querySelector('.typing-effect');
+            
+            msgWrapper.style.visibility = 'visible';
+            
+            await new Promise(res => setTimeout(res, 50)); 
+            
+            msgWrapper.classList.add('visible');
+            
+            await new Promise(resolve => {
+                typeMessage(msgElement, messages[i].text, messages[i].speed, resolve);
+            });
+        }
+    }
+
+    const chatWidget = document.getElementById('chat-widget');
+    if (chatWidget) {
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    showMessages();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.5 
+        });
+        observer.observe(chatWidget);
+    }
+});
+</script>
+
+</body>
+</html>
