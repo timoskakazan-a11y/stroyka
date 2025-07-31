@@ -14,7 +14,7 @@
 
 <style>
     :root {
-        --bg-color: #0D0D0D;
+        --bg-color: #0c0d14; /* Глубокий темно-синий космос */
         --card-bg: rgba(26, 26, 26, 0.7);
         --accent-color: #E0E0E0;
         --text-primary: #FFFFFF;
@@ -25,197 +25,132 @@
         --accent-green-dark: #28b40e;
     }
 
-    /* === ОБЩИЕ УЛУЧШЕНИЯ === */
     *, *::before, *::after { box-sizing: border-box; }
 
-    html {
-        scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
         font-family: 'Manrope', sans-serif;
         background-color: var(--bg-color);
-        /* Анимированный градиентный фон "Аврора" */
-        background-image: radial-gradient(at 27% 37%, hsla(215, 98%, 62%, 0.1) 0px, transparent 50%), 
-                          radial-gradient(at 97% 21%, hsla(38, 99%, 64%, 0.1) 0px, transparent 50%),
-                          radial-gradient(at 52% 99%, hsla(355, 98%, 62%, 0.15) 0px, transparent 50%),
-                          radial-gradient(at 10% 29%, hsla(256, 96%, 61%, 0.1) 0px, transparent 50%),
-                          radial-gradient(at 97% 96%, hsla(38, 60%, 62%, 0.1) 0px, transparent 50%),
-                          radial-gradient(at 33% 50%, hsla(222, 67%, 63%, 0.1) 0px, transparent 50%),
-                          radial-gradient(at 79% 53%, hsla(343, 68%, 63%, 0.1) 0px, transparent 50%);
         color: var(--text-primary);
         margin: 0;
+        overflow-x: hidden; /* Предотвращаем горизонтальный скролл от звезд */
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
     body.nav-open { overflow: hidden; }
 
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-
-    /* === УЛУЧШЕННАЯ ШАПКА === */
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 0;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        background: rgba(13, 13, 13, 0.5);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border-bottom: 1px solid var(--border-color);
-        transition: background-color 0.3s;
-    }
-
-    .header-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-
-    .logo {
-        font-weight: 800;
-        font-size: 24px;
-        color: var(--text-primary);
-        text-decoration: none;
+    /* === НОВЫЙ ФОН: ЗВЕЗДНОЕ НЕБО === */
+    @keyframes move-stars {
+        from { transform: translateY(0); }
+        to { transform: translateY(-10000px); }
     }
     
+    #stars-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+    }
+    .stars {
+        position: absolute;
+        width: 100%;
+        height: 200%; /* Высота в 2 раза больше для анимации */
+        background-repeat: repeat;
+        background-position: 0 0;
+        animation: move-stars 300s linear infinite;
+    }
+    #stars1 { /* Маленькие звезды */
+        background-image: radial-gradient(1px 1px at 20px 30px, white, transparent),
+                          radial-gradient(1px 1px at 80px 80px, white, transparent),
+                          radial-gradient(1px 1px at 150px 100px, white, transparent);
+        background-size: 200px 200px;
+    }
+    #stars2 { /* Средние звезды */
+        background-image: radial-gradient(2px 2px at 50px 150px, white, transparent),
+                          radial-gradient(2px 2px at 200px 50px, white, transparent);
+        background-size: 300px 300px;
+        animation-duration: 200s; /* Движутся медленнее */
+    }
+    #stars3 { /* Большие редкие звезды */
+        background-image: radial-gradient(3px 3px at 100px 250px, white, transparent);
+        background-size: 500px 500px;
+        animation-duration: 150s; /* Движутся еще медленнее */
+    }
+    
+    @keyframes shoot {
+        0% { transform: translate(-100vw, -50vh) scale(0.5); opacity: 1; }
+        100% { transform: translate(100vw, 50vh) scale(1); opacity: 0; }
+    }
+    .shooting-star {
+        position: fixed;
+        top: 50%; left: 50%;
+        width: 4px;
+        height: 4px;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 0 10px 2px white;
+        z-index: -1;
+        opacity: 0;
+        animation: shoot 5s linear infinite;
+    }
+    .shooting-star:nth-child(2) { animation-delay: 1.3s; top: 20%; }
+    .shooting-star:nth-child(3) { animation-delay: 3.7s; top: 80%; }
+
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    
+    /* === СТИЛИ ШАПКИ И ДРУГИХ ЭЛЕМЕНТОВ (БЕЗ ИЗМЕНЕНИЙ) === */
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; position: sticky; top: 0; z-index: 1000; background: rgba(13, 13, 13, 0.5); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); transition: background-color 0.3s; }
+    .header-container { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .logo { font-weight: 800; font-size: 24px; color: var(--text-primary); text-decoration: none; }
     .nav-wrapper { display: flex; align-items: center; gap: 30px; }
     .nav a { color: var(--text-secondary); text-decoration: none; font-weight: 500; transition: color 0.3s ease; padding: 5px 0; }
     .nav a:hover { color: var(--text-primary); }
-
     .cta-button { background-color: var(--accent-color); color: #101010; padding: 12px 24px; border-radius: 100px; text-decoration: none; font-weight: 700; transition: transform 0.3s ease, filter 0.3s ease; white-space: nowrap; }
     .cta-button:hover { transform: scale(1.05); filter: brightness(1.1); }
-    
-    /* === ПРЕМИАЛЬНЫЙ ГЛАВНЫЙ ЭКРАН === */
-    .hero {
-        position: relative;
-        background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600');
-        background-size: cover;
-        background-position: center;
-        border-radius: 30px;
-        padding: 100px 60px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        min-height: 60vh;
-        max-height: 700px;
-        margin-top: 40px;
-        margin-bottom: 100px;
-        overflow: hidden;
-    }
-    .hero::before { /* Градиент для читаемости текста */
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.7) 100%);
-        border-radius: 30px;
-    }
+    .hero { position: relative; background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600'); background-size: cover; background-position: center; border-radius: 30px; padding: 100px 60px; display: flex; flex-direction: column; justify-content: space-between; min-height: 60vh; max-height: 700px; margin-top: 40px; margin-bottom: 100px; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.7) 100%); border-radius: 30px; }
     .hero * { position: relative; z-index: 2; }
-
     .hero h1 { font-size: 64px; font-weight: 800; line-height: 1.15; max-width: 650px; margin: 0; }
     .hero-footer { display: flex; justify-content: space-between; align-items: flex-end; }
     .hero-footer p { max-width: 350px; color: #e0e0e0; line-height: 1.6; }
     .scroll-down { width: 60px; height: 60px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: white; font-size: 24px; flex-shrink: 0; transition: transform 0.3s ease; }
     .scroll-down:hover { transform: scale(1.1); }
-    
-    /* === ОБЩИЕ СТИЛИ ДЛЯ СЕКЦИЙ И АНИМАЦИИ === */
     main > section { margin-bottom: 100px; }
     .section-title { font-size: 48px; font-weight: 800; margin-bottom: 15px; text-align: center; }
     .section-subtitle { color: var(--text-secondary); margin: 0 auto 50px auto; max-width: 600px; line-height: 1.6; text-align: center; }
-
-    /* Анимация появления при скролле */
     .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* === НОВЫЙ ДИЗАЙН ВИДЖЕТОВ (ПРОГРЕСС И ТАЙМЕР) === */
-    .widget-card {
-        background: var(--card-bg);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-radius: 24px;
-        padding: 40px;
-        position: relative;
-        border: 1px solid var(--border-color);
-        box-shadow: 0 0 0 1px transparent; /* Для анимации свечения */
-        transition: box-shadow 0.4s ease;
-    }
+    .widget-card { background: var(--card-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 24px; padding: 40px; position: relative; border: 1px solid var(--border-color); box-shadow: 0 0 0 1px transparent; transition: box-shadow 0.4s ease; }
     .widget-card:hover { box-shadow: 0 0 0 1px var(--glow-border), 0 15px 35px rgba(0,0,0,0.3); }
-
     .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
     .progress-title { font-size: 22px; font-weight: 700; margin: 0; }
     .progress-text { font-size: 22px; font-weight: 700; color: var(--text-primary); }
     .progress-bar-container { width: 100%; height: 14px; background-color: rgba(0,0,0,0.4); border-radius: 10px; overflow: hidden; }
-    .progress-bar-fill {
-        width: 0%; height: 100%;
-        background: linear-gradient(90deg, var(--accent-green-dark), var(--accent-green));
-        box-shadow: 0 0 15px var(--accent-green);
-        border-radius: 10px;
-        transition: width 2s cubic-bezier(0.25, 1, 0.5, 1) 0.3s; /* Добавил задержку */
-    }
-
-    /* === УЛУЧШЕННАЯ ГАЛЕРЕЯ === */
+    .progress-bar-fill { width: 0%; height: 100%; background: linear-gradient(90deg, var(--accent-green-dark), var(--accent-green)); box-shadow: 0 0 15px var(--accent-green); border-radius: 10px; transition: width 2s cubic-bezier(0.25, 1, 0.5, 1) 0.3s; }
     .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-    .gallery-item {
-        background-color: var(--card-bg); border-radius: 20px; overflow: hidden; text-decoration: none; color: var(--text-primary);
-        position: relative; transform: translateY(0); transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
+    .gallery-item { background-color: var(--card-bg); border-radius: 20px; overflow: hidden; text-decoration: none; color: var(--text-primary); position: relative; transform: translateY(0); transition: transform 0.4s ease, box-shadow 0.4s ease; }
     .gallery-item:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
     .gallery-item img { width: 100%; height: 350px; object-fit: cover; transition: transform 0.4s ease; }
     .gallery-item:hover img { transform: scale(1.05); }
-    .gallery-item-content {
-        position: absolute; bottom: 0; left: 0; right: 0;
-        padding: 25px;
-        display: flex; justify-content: space-between; align-items: center;
-        background: linear-gradient(transparent, rgba(0,0,0,0.8) 70%);
-        opacity: 0; transform: translateY(20px); transition: opacity 0.4s ease, transform 0.4s ease;
-    }
+    .gallery-item-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 25px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(transparent, rgba(0,0,0,0.8) 70%); opacity: 0; transform: translateY(20px); transition: opacity 0.4s ease, transform 0.4s ease; }
     .gallery-item:hover .gallery-item-content { opacity: 1; transform: translateY(0); }
     .gallery-item-title { font-weight: 700; font-size: 20px; }
-    .gallery-arrow {
-        width: 44px; height: 44px; border: 1px solid rgba(255,255,255,0.5); border-radius: 50%;
-        display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-        backdrop-filter: blur(5px); transition: all 0.3s ease;
-    }
+    .gallery-arrow { width: 44px; height: 44px; border: 1px solid rgba(255,255,255,0.5); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; backdrop-filter: blur(5px); transition: all 0.3s ease; }
     .gallery-item:hover .gallery-arrow { background-color: var(--accent-color); color: var(--bg-color); transform: scale(1.1); }
-    /* Постоянный заголовок для карточек */
-    .gallery-item-permanent-title {
-        position: absolute;
-        bottom: 20px;
-        left: 20px;
-        font-weight: 700;
-        background: rgba(0,0,0,0.5);
-        padding: 5px 12px;
-        border-radius: 10px;
-        transition: opacity 0.4s ease;
-    }
-     .gallery-item:hover .gallery-item-permanent-title { opacity: 0; }
-
-    /* === УЛУЧШЕННЫЙ ТАЙМЕР === */
+    .gallery-item-permanent-title { position: absolute; bottom: 20px; left: 20px; font-weight: 700; background: rgba(0,0,0,0.5); padding: 5px 12px; border-radius: 10px; transition: opacity 0.4s ease; }
+    .gallery-item:hover .gallery-item-permanent-title { opacity: 0; }
     .timer-section { text-align: center; }
     .timer-container { display: flex; justify-content: center; gap: 25px; margin-top: 30px; }
     .timer-box { min-width: 100px; }
     .timer-box .time { font-size: 56px; font-weight: 800; line-height: 1; }
     .timer-box .label { font-size: 16px; color: var(--text-secondary); margin-top: 10px; text-transform: uppercase; letter-spacing: 1px; }
     .timer-finished-message { font-size: 32px; font-weight: 700; color: var(--accent-green); }
-
-    /* === БЛОК ЦИТАТЫ === */
-    blockquote {
-        font-size: 36px; font-weight: 700; line-height: 1.4; max-width: 800px; margin: 0 auto 25px;
-        border: none; text-align: center;
-    }
+    blockquote { font-size: 36px; font-weight: 700; line-height: 1.4; max-width: 800px; margin: 0 auto 25px; border: none; text-align: center; }
     .quote-section footer { color: var(--text-secondary); text-align: center; font-style: italic; }
-
-    /* === МОБИЛЬНАЯ АДАПТАЦИЯ === */
     .mobile-nav-toggle { display: none; }
     @media (max-width: 768px) {
         .header { padding: 15px 0; }
@@ -234,7 +169,6 @@
         .nav-wrapper .nav a { font-size: 24px; color: var(--text-secondary); }
         .nav-wrapper .nav a:hover, .nav-wrapper .nav a.active { color: var(--text-primary); }
         .nav-wrapper .cta-button { margin-top: 20px; padding: 14px 28px; font-size: 18px; }
-        
         main > section { margin-bottom: 80px; }
         .container { padding: 0 15px; }
         .hero { padding: 120px 20px 40px 20px; min-height: 80vh; margin-top: 20px; }
@@ -252,6 +186,16 @@
 </style>
 </head>
 <body>
+
+<!-- Элементы для создания звездного неба -->
+<div id="stars-container">
+    <div id="stars1" class="stars"></div>
+    <div id="stars2" class="stars"></div>
+    <div id="stars3" class="stars"></div>
+</div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
 
 <header class="header">
     <div class="header-container">
@@ -341,25 +285,17 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Шкала прогресса. Просто измените значение этой переменной.
-    const constructionProgress = 55; // <-- ИЗМЕНИТЕ ЭТО ЗНАЧЕНИЕ (от 0 до 100)
-
-    // 2. Таймер обратного отсчета
+    const constructionProgress = 55;
     const targetDate = new Date('Aug 3, 2025 00:00:00').getTime();
-
-    // 3. Анимация при скролле
     const revealElements = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // observer.unobserve(entry.target); // Раскомментируйте, если хотите, чтобы анимация сработала только один раз
             }
         });
     }, { threshold: 0.1 });
     revealElements.forEach(el => observer.observe(el));
-    
-    // --- Логика виджетов (не трогать) ---
     const progressBarFill = document.getElementById('progress-bar-fill');
     const progressText = document.getElementById('progress-text');
     if(progressBarFill && progressText) {
@@ -368,24 +304,20 @@ document.addEventListener('DOMContentLoaded', () => {
             progressText.textContent = constructionProgress + '%';
         }, 300);
     }
-
     const timerContainer = document.getElementById('timer-container');
     const timerInterval = setInterval(() => {
         const now = new Date().getTime();
         const distance = targetDate - now;
-
         if (distance < 0) {
             clearInterval(timerInterval);
             timerContainer.innerHTML = `<span class="timer-finished-message">Газон взошел! 🌱</span>`;
             return;
         }
-        
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
         const formatTime = (time) => time < 10 ? `0${time}` : time;
-
         timerContainer.innerHTML = `
             <div class="timer-box"><span class="time">${days}</span><span class="label">Дней</span></div>
             <div class="timer-box"><span class="time">${formatTime(hours)}</span><span class="label">Часов</span></div>
@@ -393,8 +325,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="timer-box"><span class="time">${formatTime(seconds)}</span><span class="label">Секунд</span></div>
         `;
     }, 1000);
-
-    // Мобильное меню
     const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
     const body = document.body;
     if (mobileNavToggle) {
