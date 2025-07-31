@@ -3,286 +3,310 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Стройка 2025 — Футуристичный дизайн</title>
- 
-<!-- ИКОНКА ДЛЯ ВКЛАДКИ САЙТА -->
-<link rel="icon" href="https://i.postimg.cc/8c4gLzmy/Group-74.png" type="image/png">
+<title>Наш Загородный Дом — Проект 2025</title>
 
-<!-- Подключение шрифта Manrope с Google Fonts -->
+<link rel="icon" href="https://i.postimg.cc/Jn35c6H1/Group-74.png" type="image/png">
+
+<!-- Подключение шрифтов -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
 
 <style>
     :root {
-        /* Новая палитра в стиле референса */
-        --accent-color: #d1ff4c; /* Яркий лаймовый */
-        --dark-bg: #121212;
-        --light-bg: #f3f4f6;
-        --text-primary-dark: #ffffff;
-        --text-primary-light: #121212;
+        --bg-color: #101010;
+        --card-bg: #1a1a1a;
+        --accent-color: #E0E0E0;
+        --text-primary: #FFFFFF;
         --text-secondary: #a0a0a0;
-        --card-border-color: rgba(255, 255, 255, 0.1);
+        --border-color: rgba(255, 255, 255, 0.1);
     }
 
     body {
         font-family: 'Manrope', sans-serif;
-        background-color: var(--light-bg);
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        min-height: 100vh;
+        background-color: var(--bg-color);
+        color: var(--text-primary);
         margin: 0;
-        padding: 40px 15px;
-        box-sizing: border-box;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
 
-    .main-container {
-        width: 100%;
-        max-width: 520px;
-        transition: max-width 0.5s ease;
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
     }
 
-    .content-wrapper {
+    /* --- Шапка сайта --- */
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 40px;
+    }
+
+    .logo {
+        font-weight: 800;
+        font-size: 24px;
+        color: var(--text-primary);
+        text-decoration: none;
+    }
+
+    .nav a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        margin-left: 30px;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    .nav a:hover {
+        color: var(--text-primary);
+    }
+
+    .cta-button {
+        background-color: var(--accent-color);
+        color: #101010;
+        padding: 12px 24px;
+        border-radius: 100px;
+        text-decoration: none;
+        font-weight: 700;
+        transition: transform 0.3s ease, filter 0.3s ease;
+    }
+    .cta-button:hover {
+        transform: scale(1.05);
+        filter: brightness(1.1);
+    }
+
+    /* --- Главный экран --- */
+    .hero {
+        background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600') no-repeat center center;
+        background-size: cover;
+        border-radius: 30px;
+        padding: 80px 60px;
         display: flex;
         flex-direction: column;
-        width: 100%;
-    }
-    
-    /* --- Новые стили для карточек --- */
-    .card, .chat-widget {
-        border-radius: 28px;
-        padding: 25px;
-        opacity: 0;
-        transform: translateY(20px);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+        justify-content: space-between;
+        min-height: 500px;
+        margin-bottom: 60px;
     }
 
-    /* Главная карточка (черная) */
-    .card {
-        background-color: var(--dark-bg);
-        color: var(--text-primary-dark);
-        margin-bottom: 40px;
-        animation: slideInFade 1s cubic-bezier(0.19, 1, 0.22, 1) 0.2s forwards;
-        border: 1px solid rgba(255, 255, 255, 0.05);
+    .hero h1 {
+        font-size: 56px;
+        font-weight: 800;
+        line-height: 1.2;
+        max-width: 600px;
+        margin: 0;
     }
 
-    /* Виджет чата (лаймовый) */
-    .chat-widget {
-        background-color: var(--accent-color);
-        color: var(--text-primary-light);
-        animation: slideInFade 1s cubic-bezier(0.19, 1, 0.22, 1) 0.4s forwards;
+    .hero-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
     }
     
-    @keyframes slideInFade { to { opacity: 1; transform: translateY(0); } }
-    
-    /* Новое изображение в стиле "хром" */
-    .card img { 
-        width: 100%; 
-        border-radius: 18px; 
-        aspect-ratio: 16 / 9;
-        object-fit: cover;
-    }
-    
-    .card h1 { 
-        font-size: 40px; 
-        font-weight: 800; 
-        margin: 25px 0 15px; 
-        line-height: 1.2; 
-    }
-    
-    .card .subtitle {
-        background: rgba(255, 255, 255, 0.05);
-        color: var(--accent-color);
-        padding: 8px 16px;
-        border-radius: 100px;
-        display: inline-block;
-        font-size: 14px;
-        font-weight: 600;
-        margin-bottom: 25px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+    .hero-footer p {
+        max-width: 350px;
+        color: var(--text-secondary);
+        line-height: 1.6;
     }
 
-    .card p { 
-        font-size: 16px; 
-        line-height: 1.6; 
-        color: var(--text-secondary); 
-        font-weight: 400; 
-        margin-bottom: 30px; 
-    }
-
-    .card .button {
+    .scroll-down {
+        width: 60px;
+        height: 60px;
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
-        background-color: var(--accent-color);
-        color: var(--text-primary-light);
-        text-align: center;
-        padding: 18px;
-        border-radius: 16px;
         text-decoration: none;
-        font-size: 17px;
-        font-weight: 600;
-        transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
+        color: white;
+        font-size: 24px;
     }
-    .card .button:hover { transform: scale(1.04); filter: brightness(1.1); }
-    .card .button .arrow { transition: transform 0.25s ease; }
-    .card .button:hover .arrow { transform: translateX(4px); }
-    
-    /* Стили чата */
-    .chat-widget h2 { 
-        font-size: 32px; 
-        font-weight: 800; 
-        margin-top: 0; 
-        margin-bottom: 30px; 
-        padding-left: 5px; 
+
+    /* --- Секции --- */
+    .section-title {
+        font-size: 42px;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+    .section-subtitle {
+        color: var(--text-secondary);
+        margin-bottom: 40px;
+        max-width: 500px;
+    }
+
+    /* --- Галерея этапов --- */
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin-bottom: 80px;
+    }
+
+    .gallery-item {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        overflow: hidden;
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .gallery-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
     
-    .chat-container { display: flex; flex-direction: column; gap: 15px; }
-    .message-wrapper { display: flex; gap: 12px; opacity: 0; transform: scale(0.95); animation: message-appear 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards; align-items: flex-end; }
-    @keyframes message-appear { to { opacity: 1; transform: scale(1); } }
-    
-    .avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px; flex-shrink: 0; }
-    .avatar.client { background-color: #fff; color: #000; }
-    .avatar.developer { background-color: #000; color: #fff; }
-
-    .message-content { display: flex; flex-direction: column; max-width: 85%; }
-    .message { padding: 14px 20px; border-radius: 22px; line-height: 1.5; font-size: 17px; font-weight: 500; }
-    .timestamp { font-size: 12px; font-weight: 600; color: rgba(0,0,0,0.5); margin-top: 10px; opacity: 0; transition: opacity 0.4s ease 0.3s; }
-    .message-wrapper.visible .timestamp { opacity: 1; }
-    
-    .message-wrapper.client { justify-content: flex-start; }
-    .message.client { background-color: #fff; color: var(--text-primary-light); border-bottom-left-radius: 8px; }
-    .message-content.client { align-items: flex-start; }
-    .message-wrapper.client .timestamp { margin-left: 15px; }
-
-    .message-wrapper.developer { flex-direction: row-reverse; }
-    .message.developer { background-color: var(--dark-bg); color: #fff; border-bottom-right-radius: 8px; }
-    .message-content.developer { align-items: flex-end; }
-    .message-wrapper.developer .timestamp { margin-right: 15px; }
-
-    .typing-effect { white-space: pre-wrap; }
-    .typing-cursor { display: inline-block; width: 2px; height: 1.1em; background-color: #fff; border-radius: 1px; animation: blink 1s infinite; margin-left: 1px; vertical-align: -2px; }
-    .message.client .typing-cursor { background-color: #333; }
-    @keyframes blink { 50% { opacity: 0; } }
-
-    /* ================================================= */
-    /* === Стили для десктопов (экраны шире 992px) === */
-    /* ================================================= */
-    @media (min-width: 992px) {
-        body { align-items: center; padding: 60px; }
-        .main-container { max-width: 1100px; }
-        .content-wrapper { flex-direction: row; align-items: flex-start; gap: 40px; }
-        .card { flex: 1.1; margin-bottom: 0; transform: translateX(-30px); animation: slideInFromLeft 1s cubic-bezier(0.19, 1, 0.22, 1) 0.2s forwards; }
-        .chat-widget { flex: 1; position: sticky; top: 60px; transform: translateX(30px); animation: slideInFromRight 1s cubic-bezier(0.19, 1, 0.22, 1) 0.4s forwards; }
-        @keyframes slideInFromLeft { to { opacity: 1; transform: translateX(0); } }
-        @keyframes slideInFromRight { to { opacity: 1; transform: translateX(0); } }
+    .gallery-item img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
     }
+
+    .gallery-item-content {
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .gallery-item-title {
+        font-weight: 700;
+        font-size: 18px;
+    }
+    
+    .gallery-arrow {
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--border-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: background-color 0.3s ease;
+    }
+    .gallery-item:hover .gallery-arrow {
+        background-color: var(--accent-color);
+        color: var(--bg-color);
+    }
+
+    /* --- Цитата/Отзыв --- */
+    .quote-section {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 30px;
+        padding: 60px;
+        text-align: center;
+        margin-bottom: 80px;
+    }
+    .quote-section blockquote {
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 1.4;
+        max-width: 800px;
+        margin: 0 auto 20px;
+        border: none;
+    }
+    .quote-section footer {
+        color: var(--text-secondary);
+    }
+
+    /* --- Мобильная адаптация --- */
+    @media (max-width: 768px) {
+        .nav { display: none; } /* Скрываем меню на мобильных */
+        .hero { padding: 40px 20px; min-height: 400px; }
+        .hero h1 { font-size: 36px; }
+        .hero-footer { flex-direction: column; align-items: flex-start; gap: 20px; }
+        .section-title { font-size: 32px; }
+        .quote-section { padding: 40px 20px; }
+        .quote-section blockquote { font-size: 24px; }
+    }
+
 </style>
 </head>
 <body>
 
-<div class="main-container">
-    <div class="content-wrapper">
-        <div class="card">
-            <!-- Заменил изображение на абстрактный хром -->
-            <img src="https://i.ibb.co/L5rCqfM/chrome-abstract.jpg" alt="Абстрактная хромированная фигура">
-            <h1>Стройка 2025</h1>
-            <div class="subtitle">Как это началось</div>
-            <p>Строительство дома началось в 2023 году. Был создан архитектурный проект, учтены все особенности. Летом того же года начались строительные работы.</p>
-            <a href="#" class="button">
-                <span>Перейти к проекту</span>
-                <span class="arrow">→</span>
-            </a>
-        </div>
+<div class="container">
+    <header class="header">
+        <a href="#" class="logo">ДОМ 2025</a>
+        <nav class="nav">
+            <a href="#">О проекте</a>
+            <a href="#">Этапы</a>
+            <a href="#">Галерея</a>
+            <a href="#">Планы</a>
+        </nav>
+        <a href="#" class="cta-button">Связаться с нами</a>
+    </header>
 
-        <div class="chat-widget" id="chat-widget">
-            <h2>Разработка проекта</h2>
-            <div class="chat-container">
-                <div id="msg1" class="message-wrapper client" style="visibility: hidden;">
-                    <div class="avatar client">К</div>
-                    <div class="message-content client">
-                        <div class="message client"><span class="typing-effect"></span></div>
-                        <div class="timestamp">Сегодня</div>
-                    </div>
-                </div>
-                <div id="msg2" class="message-wrapper developer" style="visibility: hidden;">
-                    <div class="avatar developer">Р</div>
-                    <div class="message-content developer">
-                        <div class="message developer"><span class="typing-effect"></span></div>
-                        <div class="timestamp">Сегодня</div>
-                    </div>
-                </div>
-                <div id="msg3" class="message-wrapper client" style="visibility: hidden;">
-                    <div class="avatar client">К</div>
-                     <div class="message-content client">
-                        <div class="message client"><span class="typing-effect"></span></div>
-                        <div class="timestamp">Сегодня</div>
-                    </div>
-                </div>
+    <main>
+        <section class="hero">
+            <h1 class="hero-title">Путь к дому мечты начинается здесь</h1>
+            <div class="hero-footer">
+                <p>Присоединяйтесь к обзору нашего будущего семейного гнезда, которое изменит всё.</p>
+                <a href="#gallery" class="scroll-down">↓</a>
             </div>
-        </div>
-    </div>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // Скрипт остается без изменений, он отлично работает с новым дизайном
-    const messages = [
-        { id: 'msg1', text: 'Я хочу в доме бассейн, теплый пол, сауну, баскетбольное кольцо, мангальную зону и волейбольную площадку🙂...', delay: 500, speed: 30 },
-        { id: 'msg2', text: 'Все будет сделано в лучшем виде!👍', delay: 800, speed: 35 },
-        { id: 'msg3', text: 'Да ладно😧', delay: 600, speed: 45 }
-    ];
-
-    function typeMessage(element, text, speed, callback) {
-        let i = 0;
-        element.innerHTML = '<span class="typing-cursor"></span>';
-        const cursor = element.querySelector('.typing-cursor');
+        </section>
         
-        const typingInterval = setInterval(() => {
-            if (i < text.length) {
-                cursor.insertAdjacentText('beforebegin', text.charAt(i));
-                i++;
-            } else {
-                clearInterval(typingInterval);
-                setTimeout(() => cursor?.remove(), 300);
-                if (callback) callback();
-            }
-        }, speed);
-    }
+        <section>
+            <h2 class="section-title">Этапы строительства</h2>
+            <p class="section-subtitle">От закладки фундамента до внутренней отделки — посмотрите, как рождается наш дом.</p>
+            
+            <div class="gallery" id="gallery">
+                <a href="#" class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1579402569724-c112a95c9861?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="Фундамент">
+                    <div class="gallery-item-content">
+                        <span class="gallery-item-title">Фундамент</span>
+                        <span class="gallery-arrow">→</span>
+                    </div>
+                </a>
+                <a href="#" class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="Возведение стен">
+                    <div class="gallery-item-content">
+                        <span class="gallery-item-title">Возведение стен</span>
+                        <span class="gallery-arrow">→</span>
+                    </div>
+                </a>
+                <a href="#" class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1600585153492-5a915b8a5b88?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="Крыша и окна">
+                    <div class="gallery-item-content">
+                        <span class="gallery-item-title">Крыша и окна</span>
+                        <span class="gallery-arrow">→</span>
+                    </div>
+                </a>
+                 <a href="#" class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="Интерьер">
+                    <div class="gallery-item-content">
+                        <span class="gallery-item-title">Внутренняя отделка</span>
+                        <span class="gallery-arrow">→</span>
+                    </div>
+                </a>
+                <a href="#" class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="Дизайн">
+                    <div class="gallery-item-content">
+                        <span class="gallery-item-title">Готовый интерьер</span>
+                        <span class="gallery-arrow">→</span>
+                    </div>
+                </a>
+                <a href="#" class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="Финальный вид">
+                    <div class="gallery-item-content">
+                        <span class="gallery-item-title">Финальный вид</span>
+                        <span class="gallery-arrow">→</span>
+                    </div>
+                </a>
+            </div>
+        </section>
 
-    async function showMessages() {
-        for (let i = 0; i < messages.length; i++) {
-            await new Promise(resolve => setTimeout(resolve, messages[i].delay));
-            const msgWrapper = document.getElementById(messages[i].id);
-            if (!msgWrapper) continue;
-            const msgElement = msgWrapper.querySelector('.typing-effect');
-            msgWrapper.style.visibility = 'visible';
-            await new Promise(res => setTimeout(res, 50));
-            msgWrapper.classList.add('visible');
-            await new Promise(resolve => {
-                typeMessage(msgElement, messages[i].text, messages[i].speed, resolve);
-            });
-        }
-    }
-
-    const chatWidget = document.getElementById('chat-widget');
-    if (chatWidget) {
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    showMessages();
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-        observer.observe(chatWidget);
-    }
-});
-</script>
+        <section class="quote-section">
+            <blockquote>«Дом — это не просто место, это чувство. Мы строим не просто стены, а будущее, полное тепла и счастливых моментов.»</blockquote>
+            <footer>— Глава Семьи</footer>
+        </section>
+        
+    </main>
+</div>
 
 </body>
 </html>
