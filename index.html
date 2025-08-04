@@ -3,26 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Наш Загородный Дом — Проект 2025</title>
+<title>Дом 2025</title>
 
 <link rel="icon" href="https://i.postimg.cc/Jn35c6H1/Group-74.png" type="image/png">
 
-<!-- Подключение шрифтов -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<!-- Системные шрифты в стиле Apple -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
+</style>
 
 <style>
     :root {
-        --bg-color: #0c0d14; /* Глубокий темно-синий космос */
-        --card-bg: rgba(26, 26, 26, 0.7);
-        --accent-color: #E0E0E0;
-        --text-primary: #FFFFFF;
-        --text-secondary: #a0a0a0;
-        --border-color: rgba(255, 255, 255, 0.1);
-        --glow-border: rgba(255, 255, 255, 0.15);
-        --accent-green: #39FF14;
-        --accent-green-dark: #28b40e;
+        --apple-bg: #111111;
+        --apple-card-bg: #1d1d1f;
+        --apple-text-primary: #f5f5f7;
+        --apple-text-secondary: #a1a1a6;
+        --apple-blue: #007aff;
+        --apple-border: rgba(255, 255, 255, 0.15);
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -30,220 +27,219 @@
     html { scroll-behavior: smooth; }
 
     body {
-        font-family: 'Manrope', sans-serif;
-        background-color: var(--bg-color);
-        color: var(--text-primary);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--apple-bg);
+        color: var(--apple-text-primary);
         margin: 0;
-        overflow-x: hidden;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
     body.nav-open, body.splash-open { overflow: hidden; }
 
-    /* === ЭФФЕКТ ЗВЕЗДНОГО НЕБА === */
-    @keyframes move-stars { from { transform: translateY(0); } to { transform: translateY(-10000px); } }
-    #stars-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; }
-    .stars { position: absolute; width: 100%; height: 200%; background-repeat: repeat; background-position: 0 0; animation: move-stars 300s linear infinite; }
-    #stars1 { background-image: radial-gradient(1px 1px at 20px 30px, white, transparent), radial-gradient(1px 1px at 80px 80px, white, transparent), radial-gradient(1px 1px at 150px 100px, white, transparent); background-size: 200px 200px; }
-    #stars2 { background-image: radial-gradient(2px 2px at 50px 150px, white, transparent), radial-gradient(2px 2px at 200px 50px, white, transparent); background-size: 300px 300px; animation-duration: 200s; }
-    #stars3 { background-image: radial-gradient(3px 3px at 100px 250px, white, transparent); background-size: 500px 500px; animation-duration: 150s; }
-    @keyframes shoot { 0% { transform: translate(-100vw, -50vh) scale(0.5); opacity: 1; } 100% { transform: translate(100vw, 50vh) scale(1); opacity: 0; } }
-    .shooting-star { position: fixed; top: 50%; left: 50%; width: 4px; height: 4px; background: white; border-radius: 50%; box-shadow: 0 0 10px 2px white; z-index: -1; opacity: 0; animation: shoot 5s linear infinite; }
-    .shooting-star:nth-child(2) { animation-delay: 1.3s; top: 20%; }
-    .shooting-star:nth-child(3) { animation-delay: 3.7s; top: 80%; }
-
-    /* === НОВЫЕ СТИЛИ: ПЛАШКА "В РАЗРАБОТКЕ" === */
+    /* === ПЛАШКА "В РАЗРАБОТКЕ" В СТИЛЕ APPLE === */
     @keyframes splash-fade-in { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes splash-content-appear { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    @keyframes splash-content-appear { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
     @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
     #splash-screen {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        z-index: 10000;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(12, 13, 20, 0.7);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000;
+        display: flex; justify-content: center; align-items: center;
+        background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
         animation: splash-fade-in 0.5s ease forwards;
     }
-    #splash-screen.hidden {
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.5s ease;
-    }
-
-    .splash-content {
-        text-align: center;
-        padding: 40px;
-        animation: splash-content-appear 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s forwards;
-        opacity: 0;
-    }
-    .splash-icon {
-        width: 80px;
-        height: 80px;
-        color: var(--text-secondary);
-        margin: 0 auto 30px auto;
-        animation: spin 20s linear infinite;
-    }
-    .splash-content h2 {
-        font-size: 36px;
-        font-weight: 800;
-        margin: 0 0 15px 0;
-    }
-    .splash-content p {
-        font-size: 18px;
-        max-width: 400px;
-        color: var(--text-secondary);
-        line-height: 1.6;
-        margin: 0 auto 30px auto;
-    }
+    #splash-screen.hidden { opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+    .splash-content { text-align: center; padding: 40px; animation: splash-content-appear 0.6s ease 0.2s forwards; opacity: 0; }
+    .splash-icon { width: 60px; height: 60px; color: var(--apple-text-secondary); margin: 0 auto 30px auto; animation: spin 20s linear infinite; }
+    .splash-content h2 { font-size: 32px; font-weight: 700; margin: 0 0 15px 0; }
+    .splash-content p { font-size: 17px; max-width: 400px; color: var(--apple-text-secondary); line-height: 1.5; margin: 0 auto 30px auto; }
     .splash-button {
-        display: inline-block;
-        background-color: var(--accent-color);
-        color: #101010;
-        padding: 14px 32px;
-        border-radius: 100px;
-        text-decoration: none;
-        font-weight: 700;
-        transition: transform 0.3s ease, filter 0.3s ease;
+        display: inline-block; background-color: var(--apple-blue); color: white;
+        padding: 12px 28px; border-radius: 100px; text-decoration: none; font-weight: 500;
+        font-size: 17px; transition: filter 0.2s ease; border: none; cursor: pointer;
     }
-    .splash-button:hover { transform: scale(1.05); filter: brightness(1.1); }
+    .splash-button:hover { filter: brightness(1.15); }
     
 
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    /* === ШАПКА В СТИЛЕ APPLE === */
+    .header {
+        position: sticky; top: 0; z-index: 1000;
+        background: rgba(17, 17, 17, 0.8);
+        backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    }
+    .header-container {
+        display: flex; justify-content: space-between; align-items: center;
+        max-width: 1024px; margin: 0 auto; padding: 12px 20px;
+    }
+    .logo { font-weight: 700; font-size: 20px; color: var(--apple-text-primary); text-decoration: none; }
+    .nav { display: flex; align-items: center; gap: 35px; }
+    .nav a { color: var(--apple-text-secondary); text-decoration: none; font-weight: 500; font-size: 14px; transition: color 0.3s ease; }
+    .nav a:hover { color: var(--apple-text-primary); }
+    .cta-button {
+        display: inline-block; background-color: var(--apple-blue); color: white;
+        padding: 8px 16px; border-radius: 100px; text-decoration: none; font-weight: 500;
+        font-size: 14px; transition: filter 0.2s ease;
+    }
+    .cta-button:hover { filter: brightness(1.15); }
+    .mobile-nav-toggle { display: none; } /* Скрываем на десктопе */
+
+    /* === ГЛАВНЫЙ БЛОК В СТИЛЕ APPLE === */
+    .hero {
+        text-align: center;
+        padding: 100px 20px;
+    }
+    .hero h1 {
+        font-size: 72px;
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        margin: 0 auto 20px auto;
+        max-width: 800px;
+    }
+    .hero p {
+        font-size: 24px;
+        color: var(--apple-text-secondary);
+        max-width: 650px;
+        margin: 0 auto 40px auto;
+        line-height: 1.4;
+    }
+    .hero-image-container {
+        max-width: 1024px;
+        margin: 0 auto;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+    .hero-image-container img {
+        width: 100%;
+        display: block;
+    }
+
+    /* === ОБЩИЕ СТИЛИ СЕКЦИЙ === */
+    .container { max-width: 1024px; margin: 0 auto; padding: 0 20px; }
+    main > section { padding: 80px 0; }
+    .section-title { font-size: 48px; font-weight: 700; text-align: center; margin: 0 auto 20px auto; max-width: 700px; }
+    .section-subtitle { font-size: 20px; color: var(--apple-text-secondary); text-align: center; max-width: 600px; margin: 0 auto 60px auto; line-height: 1.5; }
     
-    .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; position: sticky; top: 0; z-index: 1000; background: rgba(13, 13, 13, 0.5); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); transition: background-color 0.3s; }
-    .header-container { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    .logo { font-weight: 800; font-size: 24px; color: var(--text-primary); text-decoration: none; }
-    .nav-wrapper { display: flex; align-items: center; gap: 30px; }
-    .nav a { color: var(--text-secondary); text-decoration: none; font-weight: 500; transition: color 0.3s ease; padding: 5px 0; }
-    .nav a:hover { color: var(--text-primary); }
-    .cta-button { background-color: var(--accent-color); color: #101010; padding: 12px 24px; border-radius: 100px; text-decoration: none; font-weight: 700; transition: transform 0.3s ease, filter 0.3s ease; white-space: nowrap; }
-    .cta-button:hover { transform: scale(1.05); filter: brightness(1.1); }
-    .hero { position: relative; background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600'); background-size: cover; background-position: center; border-radius: 30px; padding: 100px 60px; display: flex; flex-direction: column; justify-content: space-between; min-height: 60vh; max-height: 700px; margin-top: 40px; margin-bottom: 100px; overflow: hidden; }
-    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.7) 100%); border-radius: 30px; }
-    .hero * { position: relative; z-index: 2; }
-    .hero h1 { font-size: 64px; font-weight: 800; line-height: 1.15; max-width: 650px; margin: 0; }
-    .hero-footer { display: flex; justify-content: space-between; align-items: flex-end; }
-    .hero-footer p { max-width: 350px; color: #e0e0e0; line-height: 1.6; }
-    .scroll-down { width: 60px; height: 60px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: white; font-size: 24px; flex-shrink: 0; transition: transform 0.3s ease; }
-    .scroll-down:hover { transform: scale(1.1); }
-    main > section { margin-bottom: 100px; }
-    .section-title { font-size: 48px; font-weight: 800; margin-bottom: 15px; text-align: center; }
-    .section-subtitle { color: var(--text-secondary); margin: 0 auto 50px auto; max-width: 600px; line-height: 1.6; text-align: center; }
-    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); }
+    /* Анимации */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-    .widget-card { background: var(--card-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 24px; padding: 40px; position: relative; border: 1px solid var(--border-color); box-shadow: 0 0 0 1px transparent; transition: box-shadow 0.4s ease; }
-    .widget-card:hover { box-shadow: 0 0 0 1px var(--glow-border), 0 15px 35px rgba(0,0,0,0.3); }
+    
+    /* === ВИДЖЕТ ПРОГРЕССА === */
+    .progress-widget {
+        background-color: var(--apple-card-bg);
+        border-radius: 30px;
+        padding: 40px;
+        border: 1px solid rgba(255,255,255,0.05);
+    }
     .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-    .progress-title { font-size: 22px; font-weight: 700; margin: 0; }
-    .progress-text { font-size: 22px; font-weight: 700; color: var(--text-primary); }
-    .progress-bar-container { width: 100%; height: 14px; background-color: rgba(0,0,0,0.4); border-radius: 10px; overflow: hidden; }
-    .progress-bar-fill { width: 0%; height: 100%; background: linear-gradient(90deg, var(--accent-green-dark), var(--accent-green)); box-shadow: 0 0 15px var(--accent-green); border-radius: 10px; transition: width 2s cubic-bezier(0.25, 1, 0.5, 1) 0.3s; }
+    .progress-title { font-size: 20px; font-weight: 700; margin: 0; }
+    .progress-text { font-size: 20px; font-weight: 700; color: var(--apple-text-primary); }
+    .progress-bar-container { width: 100%; height: 8px; background-color: #333; border-radius: 10px; overflow: hidden; }
+    .progress-bar-fill { width: 0%; height: 100%; background-color: var(--apple-text-primary); border-radius: 10px; transition: width 2s cubic-bezier(0.25, 1, 0.5, 1) 0.3s; }
+
+    /* === ГАЛЕРЕЯ В СТИЛЕ APPLE === */
     .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-    .gallery-item { background-color: var(--card-bg); border-radius: 20px; overflow: hidden; text-decoration: none; color: var(--text-primary); position: relative; transform: translateY(0); transition: transform 0.4s ease, box-shadow 0.4s ease; }
-    .gallery-item:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-    .gallery-item img { width: 100%; height: 350px; object-fit: cover; transition: transform 0.4s ease; }
-    .gallery-item:hover img { transform: scale(1.05); }
-    .gallery-item-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 25px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(transparent, rgba(0,0,0,0.8) 70%); opacity: 0; transform: translateY(20px); transition: opacity 0.4s ease, transform 0.4s ease; }
-    .gallery-item:hover .gallery-item-content { opacity: 1; transform: translateY(0); }
+    .gallery-item {
+        background-color: var(--apple-card-bg);
+        border-radius: 30px;
+        overflow: hidden;
+        text-decoration: none; color: var(--apple-text-primary);
+        transition: transform 0.3s ease;
+    }
+    .gallery-item:hover { transform: scale(1.03); }
+    .gallery-item img { width: 100%; height: 250px; object-fit: cover; display: block; }
+    .gallery-item-content { padding: 25px; }
     .gallery-item-title { font-weight: 700; font-size: 20px; }
-    .gallery-arrow { width: 44px; height: 44px; border: 1px solid rgba(255,255,255,0.5); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; backdrop-filter: blur(5px); transition: all 0.3s ease; }
-    .gallery-item:hover .gallery-arrow { background-color: var(--accent-color); color: var(--bg-color); transform: scale(1.1); }
-    .gallery-item-permanent-title { position: absolute; bottom: 20px; left: 20px; font-weight: 700; background: rgba(0,0,0,0.5); padding: 5px 12px; border-radius: 10px; transition: opacity 0.4s ease; }
-    .gallery-item:hover .gallery-item-permanent-title { opacity: 0; }
-    blockquote { font-size: 36px; font-weight: 700; line-height: 1.4; max-width: 800px; margin: 0 auto 25px; border: none; text-align: center; }
-    .quote-section footer { color: var(--text-secondary); text-align: center; font-style: italic; }
-    .mobile-nav-toggle { display: none; }
+    .gallery-item-subtitle { color: var(--apple-text-secondary); font-size: 16px; margin-top: 5px; }
+
+    /* === ЦИТАТА === */
+    blockquote { font-size: 40px; font-weight: 700; text-align: center; line-height: 1.3; max-width: 800px; margin: 0 auto 25px; border: none; }
+    .quote-section footer { color: var(--apple-text-secondary); text-align: center; font-size: 18px; }
+
+    /* === МОБИЛЬНАЯ АДАПТАЦИЯ === */
     @media (max-width: 768px) {
-        .header { padding: 15px 0; }
-        .header-container { padding: 0 15px; }
-        .mobile-nav-toggle { display: block; width: 30px; height: 24px; background: none; border: none; padding: 0; cursor: pointer; z-index: 1001; }
-        .mobile-nav-toggle span { display: block; width: 100%; height: 3px; background-color: var(--text-primary); border-radius: 2px; position: relative; transition: transform 0.3s ease, opacity 0.3s ease; }
-        .mobile-nav-toggle span::before, .mobile-nav-toggle span::after { content: ''; position: absolute; left: 0; width: 100%; height: 100%; background-color: var(--text-primary); border-radius: 2px; transition: transform 0.3s ease; }
-        .mobile-nav-toggle span::before { transform: translateY(-9px); }
-        .mobile-nav-toggle span::after { transform: translateY(9px); }
-        .nav-open .mobile-nav-toggle span { background-color: transparent; }
-        .nav-open .mobile-nav-toggle span::before { transform: translateY(0) rotate(45deg); }
-        .nav-open .mobile-nav-toggle span::after { transform: translateY(0) rotate(-45deg); }
-        .nav-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-color); flex-direction: column; justify-content: center; align-items: center; gap: 25px; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1); visibility: hidden; }
-        .nav-open .nav-wrapper { transform: translateX(0); visibility: visible; }
-        .nav-wrapper .nav { display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .nav-wrapper .nav a { font-size: 24px; color: var(--text-secondary); }
-        .nav-wrapper .nav a:hover, .nav-wrapper .nav a.active { color: var(--text-primary); }
-        .nav-wrapper .cta-button { margin-top: 20px; padding: 14px 28px; font-size: 18px; }
-        main > section { margin-bottom: 80px; }
-        .container { padding: 0 15px; }
-        .hero { padding: 120px 20px 40px 20px; min-height: 80vh; margin-top: 20px; }
+        .nav { display: none; }
+        .cta-button { display: none; }
+        .mobile-nav-toggle {
+            display: block; width: 24px; height: 24px; background: none; border: none; padding: 0; cursor: pointer; z-index: 1001; position: relative;
+        }
+        .mobile-nav-toggle span { display: block; width: 18px; height: 2px; margin: 4px auto; background-color: var(--apple-text-primary); border-radius: 2px; position: relative; transition: transform 0.3s ease, opacity 0.3s ease; }
+        .nav-open .mobile-nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+        .nav-open .mobile-nav-toggle span:nth-child(2) { opacity: 0; }
+        .nav-open .mobile-nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+        
+        #nav-mobile {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(17, 17, 17, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            display: flex; flex-direction: column; align-items: center; padding-top: 100px;
+            transform: translateY(-100%); visibility: hidden; transition: transform 0.4s ease, visibility 0.4s;
+        }
+        .nav-open #nav-mobile { transform: translateY(0); visibility: visible; }
+        #nav-mobile a { font-size: 28px; color: var(--apple-text-primary); padding: 15px 0; }
+
+        .hero { padding: 60px 20px; }
         .hero h1 { font-size: 40px; }
-        .hero-footer { flex-direction: column; align-items: flex-start; gap: 30px; }
+        .hero p { font-size: 19px; }
+        main > section { padding: 60px 0; }
         .section-title { font-size: 36px; }
-        .section-subtitle { margin-bottom: 40px; }
-        .gallery { grid-template-columns: 1fr; gap: 20px; }
-        .gallery-item img { height: 300px; }
-        blockquote { font-size: 24px; }
+        .section-subtitle { font-size: 18px; margin-bottom: 40px; }
+        blockquote { font-size: 28px; }
     }
 </style>
 </head>
 <body>
 
-<!-- Элементы для звездного неба -->
-<div id="stars-container">
-    <div id="stars1" class="stars"></div>
-    <div id="stars2" class="stars"></div>
-    <div id="stars3" class="stars"></div>
-</div>
-<div class="shooting-star"></div>
-<div class="shooting-star"></div>
-<div class="shooting-star"></div>
-
-<!-- Плашка "В разработке" (по умолчанию скрыта) -->
+<!-- Плашка "В разработке" -->
 <div id="splash-screen" style="display: none;">
     <div class="splash-content">
         <svg class="splash-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
         <h2>Сайт в разработке</h2>
-        <p>Эта страница все еще находится в процессе создания. Некоторые функции могут отсутствовать или работать некорректно. Спасибо за ваше терпение!</p>
-        <a href="#" class="splash-button" id="close-splash">Продолжить</a>
+        <p>Эта страница находится в процессе создания. Некоторые функции могут быть изменены.</p>
+        <button class="splash-button" id="close-splash">Продолжить</button>
     </div>
 </div>
 
 <header class="header">
     <div class="header-container">
-        <a href="#" class="logo">ДОМ 2025</a>
-        <div class="nav-wrapper">
-            <nav class="nav">
-                <a href="#progress">Прогресс</a>
-                <a href="#gallery">Этапы</a>
-                <a href="#quote">О Доме</a>
-            </nav>
-            <a href="#" class="cta-button">Связаться</a>
-        </div>
-        <button class="mobile-nav-toggle" aria-label="Открыть меню"><span></span></button>
+        <a href="#" class="logo">Дом 2025</a>
+        <nav class="nav">
+            <a href="#progress">Прогресс</a>
+            <a href="#gallery">Этапы</a>
+            <a href="#quote">О Доме</a>
+        </nav>
+        <button class="mobile-nav-toggle" aria-label="Открыть меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
 </header>
 
-<div class="container">
-    <main>
-        <section class="hero reveal">
-            <h1>Дом, в котором живет будущее</h1>
-            <div class="hero-footer">
-                <p>Следите за каждым этапом создания нашего семейного гнезда. Мечта становится реальностью.</p>
-                <a href="#progress" class="scroll-down">↓</a>
-            </div>
-        </section>
-        
+<!-- Мобильное меню -->
+<nav id="nav-mobile">
+    <a href="#progress">Прогресс</a>
+    <a href="#gallery">Этапы</a>
+    <a href="#quote">О Доме</a>
+</nav>
+
+<main>
+    <section class="hero">
+        <h1>Проект. Созданный для будущего.</h1>
+        <p>Следите за каждым этапом создания нашего семейного гнезда. Мечта становится реальностью.</p>
+        <div class="hero-image-container reveal">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600" alt="Современный загородный дом">
+        </div>
+    </section>
+    
+    <div class="container">
         <section id="progress" class="reveal">
             <h2 class="section-title">Статус Проекта</h2>
-            <p class="section-subtitle">Наш путь к завершению. Актуальные данные о ходе строительства.</p>
+            <p class="section-subtitle">Актуальные данные о ходе строительства. Наш путь к завершению.</p>
             
-            <div class="widget-card">
+            <div class="progress-widget">
                 <div class="progress-header">
                     <h3 class="progress-title">Общий прогресс</h3>
                     <span class="progress-text" id="progress-text">0%</span>
@@ -261,37 +257,34 @@
             <div class="gallery">
                 <a href="#" class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1579402569724-c112a95c9861?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="Фундамент" loading="eager">
-                    <div class="gallery-item-permanent-title">Фундамент</div>
                     <div class="gallery-item-content">
-                        <span class="gallery-item-title">Закладка фундамента</span>
-                        <span class="gallery-arrow">→</span>
+                        <div class="gallery-item-title">Фундамент</div>
+                        <div class="gallery-item-subtitle">Основа всего проекта</div>
                     </div>
                 </a>
                 <a href="#" class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="Возведение стен" loading="eager">
-                     <div class="gallery-item-permanent-title">Стены</div>
-                    <div class="gallery-item-content">
-                        <span class="gallery-item-title">Возведение стен</span>
-                        <span class="gallery-arrow">→</span>
+                     <div class="gallery-item-content">
+                        <div class="gallery-item-title">Возведение стен</div>
+                        <div class="gallery-item-subtitle">Дом обретает форму</div>
                     </div>
                 </a>
                 <a href="#" class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1600585153492-5a915b8a5b88?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="Крыша и окна" loading="eager">
-                     <div class="gallery-item-permanent-title">Кровля</div>
-                    <div class="gallery-item-content">
-                        <span class="gallery-item-title">Монтаж крыши и окон</span>
-                        <span class="gallery-arrow">→</span>
+                     <div class="gallery-item-content">
+                        <div class="gallery-item-title">Кровля и Окна</div>
+                        <div class="gallery-item-subtitle">Защита от стихии</div>
                     </div>
                 </a>
             </div>
         </section>
         
         <section id="quote" class="quote-section reveal">
-            <blockquote>«Мы строим не просто стены из кирпича, а место, куда всегда хочется возвращаться.»</blockquote>
+            <blockquote>Мы строим не просто стены из кирпича, а место, куда всегда хочется возвращаться.</blockquote>
             <footer>— Владельцы будущего дома</footer>
         </section>
-    </main>
-</div>
+    </div>
+</main>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -319,8 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('splash-open');
     });
 
-
-    // --- Остальная логика страницы ---
+    // --- Анимация при скролле ---
     const revealElements = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -331,19 +323,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.1 });
     revealElements.forEach(el => observer.observe(el));
     
+    // --- Заполнение шкалы прогресса ---
     const progressBarFill = document.getElementById('progress-bar-fill');
     const progressText = document.getElementById('progress-text');
     if(progressBarFill && progressText) {
         setTimeout(() => {
             progressBarFill.style.width = constructionProgress + '%';
             progressText.textContent = constructionProgress + '%';
-        }, 300);
+        }, 500); // Немного увеличена задержка для плавности
     }
 
+    // --- Мобильное меню ---
     const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const mobileNav = document.getElementById('nav-mobile');
     if (mobileNavToggle) {
         mobileNavToggle.addEventListener('click', () => {
             document.body.classList.toggle('nav-open');
+        });
+        // Закрываем меню при клике на ссылку
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.body.classList.remove('nav-open');
+            });
         });
     }
 });
