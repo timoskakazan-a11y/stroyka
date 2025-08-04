@@ -14,19 +14,15 @@
 
 <style>
     :root {
-        --bg-color: #121418;
-        --card-bg: rgba(28, 30, 36, 0.7);
+        --bg-color: #0c0d14; /* Глубокий темно-синий космос */
+        --card-bg: rgba(26, 26, 26, 0.7);
         --accent-color: #E0E0E0;
         --text-primary: #FFFFFF;
         --text-secondary: #a0a0a0;
         --border-color: rgba(255, 255, 255, 0.1);
         --glow-border: rgba(255, 255, 255, 0.15);
-        
-        /* ЦВЕТА ДЛЯ КАРТЫ (ИЗ ВАШЕГО ИЗОБРАЖЕНИЯ) */
-        --zone-safe-new: #1ed760;
-        --zone-caution-new: #ff8c21;
-        --zone-danger-new: #ff1f1f;
-        --zone-house-bg: #000000;
+        --accent-green: #39FF14;
+        --accent-green-dark: #28b40e;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -41,25 +37,86 @@
         overflow-x: hidden;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        position: relative;
     }
-    body::before {
-        content: '';
+    body.nav-open, body.splash-open { overflow: hidden; }
+
+    /* === ЭФФЕКТ ЗВЕЗДНОГО НЕБА === */
+    @keyframes move-stars { from { transform: translateY(0); } to { transform: translateY(-10000px); } }
+    #stars-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; }
+    .stars { position: absolute; width: 100%; height: 200%; background-repeat: repeat; background-position: 0 0; animation: move-stars 300s linear infinite; }
+    #stars1 { background-image: radial-gradient(1px 1px at 20px 30px, white, transparent), radial-gradient(1px 1px at 80px 80px, white, transparent), radial-gradient(1px 1px at 150px 100px, white, transparent); background-size: 200px 200px; }
+    #stars2 { background-image: radial-gradient(2px 2px at 50px 150px, white, transparent), radial-gradient(2px 2px at 200px 50px, white, transparent); background-size: 300px 300px; animation-duration: 200s; }
+    #stars3 { background-image: radial-gradient(3px 3px at 100px 250px, white, transparent); background-size: 500px 500px; animation-duration: 150s; }
+    @keyframes shoot { 0% { transform: translate(-100vw, -50vh) scale(0.5); opacity: 1; } 100% { transform: translate(100vw, 50vh) scale(1); opacity: 0; } }
+    .shooting-star { position: fixed; top: 50%; left: 50%; width: 4px; height: 4px; background: white; border-radius: 50%; box-shadow: 0 0 10px 2px white; z-index: -1; opacity: 0; animation: shoot 5s linear infinite; }
+    .shooting-star:nth-child(2) { animation-delay: 1.3s; top: 20%; }
+    .shooting-star:nth-child(3) { animation-delay: 3.7s; top: 80%; }
+
+    /* === НОВЫЕ СТИЛИ: ПЛАШКА "В РАЗРАБОТКЕ" === */
+    @keyframes splash-fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes splash-content-appear { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    #splash-screen {
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39sbGxVVVVTU1NtbW1paWlnZ2dubm56enpsbW1SUlNBCppGAAAAHHRSTlMAAAAAAAABAgMEBQYHCAwNDhARExMUFRYXGBkaJjR+6AAAAQB0Uk5T////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////AWNv2QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAKtJREFUeJx900sKwzAQRFFbFNR75/3/v3QoBgBl1s3I3Umsj2cM2IwbwXbDG/D+wDNzWpMAcErBNgM+2pQA4L2qGICy2cKAZQZk7WcAUx8g2A4A1qfCgAMA6j4g2A0A1n4g2A8A1v4g2A4A1v4g2A8A1v4g2A4A1gYg2A4A1gYg2A8A1gYg2A4A1gYg2A8A1gYg2A4A1gYg2A8A1vYg2A4A1vYg2A8A1vYg2A4A1vYg2A8A1gYg2M+3QAAAABJRU5ErkJggg==');
-        opacity: 0.04;
-        z-index: -1;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: 10000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(12, 13, 20, 0.7);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        animation: splash-fade-in 0.5s ease forwards;
+    }
+    #splash-screen.hidden {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s ease;
     }
 
-    body.nav-open { overflow: hidden; }
+    .splash-content {
+        text-align: center;
+        padding: 40px;
+        animation: splash-content-appear 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s forwards;
+        opacity: 0;
+    }
+    .splash-icon {
+        width: 80px;
+        height: 80px;
+        color: var(--text-secondary);
+        margin: 0 auto 30px auto;
+        animation: spin 20s linear infinite;
+    }
+    .splash-content h2 {
+        font-size: 36px;
+        font-weight: 800;
+        margin: 0 0 15px 0;
+    }
+    .splash-content p {
+        font-size: 18px;
+        max-width: 400px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin: 0 auto 30px auto;
+    }
+    .splash-button {
+        display: inline-block;
+        background-color: var(--accent-color);
+        color: #101010;
+        padding: 14px 32px;
+        border-radius: 100px;
+        text-decoration: none;
+        font-weight: 700;
+        transition: transform 0.3s ease, filter 0.3s ease;
+    }
+    .splash-button:hover { transform: scale(1.05); filter: brightness(1.1); }
+    
 
     .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     
-    .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; position: sticky; top: 0; z-index: 1000; background: rgba(18, 20, 24, 0.5); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); transition: background-color 0.3s; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; position: sticky; top: 0; z-index: 1000; background: rgba(13, 13, 13, 0.5); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); transition: background-color 0.3s; }
     .header-container { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     .logo { font-weight: 800; font-size: 24px; color: var(--text-primary); text-decoration: none; }
     .nav-wrapper { display: flex; align-items: center; gap: 30px; }
@@ -86,66 +143,7 @@
     .progress-title { font-size: 22px; font-weight: 700; margin: 0; }
     .progress-text { font-size: 22px; font-weight: 700; color: var(--text-primary); }
     .progress-bar-container { width: 100%; height: 14px; background-color: rgba(0,0,0,0.4); border-radius: 10px; overflow: hidden; }
-    .progress-bar-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #16a34a, #22c55e); box-shadow: 0 0 15px #22c55e; border-radius: 10px; transition: width 2s cubic-bezier(0.25, 1, 0.5, 1) 0.3s; }
-    
-    /* === НОВАЯ СЕКЦИЯ: КАРТА БЕЗОПАСНОСТИ === */
-    .map-grid-container {
-        background-color: var(--zone-house-bg);
-        padding: 8px; /* Небольшой отступ, чтобы было видно фон */
-    }
-    .map-grid {
-        display: grid;
-        grid-template-columns: 1.2fr 0.3fr 0.7fr 0.8fr 1.5fr 1fr;
-        grid-template-rows: 1fr 0.3fr 1fr 1fr;
-        height: 500px;
-        gap: 8px;
-    }
-    .map-zone {
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 800;
-        font-size: 1.4vw; /* Адаптивный размер шрифта */
-        line-height: 1.1;
-        text-transform: uppercase;
-        text-align: center;
-        padding: 10px;
-        position: relative;
-        cursor: help;
-        transition: transform 0.3s ease, filter 0.3s ease;
-    }
-    .map-zone:hover {
-        transform: scale(1.02);
-        filter: brightness(1.2);
-        z-index: 10;
-    }
-    .zone-safe { background-color: var(--zone-safe-new); }
-    .zone-caution { background-color: var(--zone-caution-new); }
-    .zone-danger { background-color: var(--zone-danger-new); }
-    
-    /* Расположение зон по сетке */
-    #map-gazon-ne-sdelan { grid-area: 1 / 1 / 2 / 3; }
-    #map-glina-left { grid-area: 2 / 1 / 5 / 2; }
-    #map-sklad-musora { grid-area: 2 / 2 / 3 / 4; z-index: 2; }
-    #map-dorozhki { grid-area: 3 / 2 / 4 / 4; z-index: 3; }
-    #map-vyezd { grid-area: 1 / 4 / 3 / 5; z-index: 2; }
-    #map-glina-top { grid-area: 1 / 5 / 2 / 7; }
-    #map-pesok { grid-area: 2 / 5 / 3 / 6; }
-    #map-kacheli { grid-area: 3 / 5 / 4 / 6; }
-    #map-voleybol { grid-area: 4 / 5 / 5 / 6; }
-    #map-sklad-dosok { grid-area: 2 / 6 / 4 / 7; }
-    #map-gazon-bottom { grid-area: 4 / 2 / 5 / 5; }
-
-    /* Всплывающая подсказка */
-    .map-zone::before { content: attr(data-tooltip); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%) translateY(-10px); background-color: #2a2f3b; color: white; padding: 8px 12px; border-radius: 8px; font-size: 14px; white-space: nowrap; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease; z-index: 20; }
-    .map-zone:hover::before { opacity: 1; visibility: visible; }
-
-    /* Легенда карты */
-    .map-legend { display: flex; justify-content: center; gap: 30px; margin-top: 30px; flex-wrap: wrap; }
-    .legend-item { display: flex; align-items: center; gap: 10px; }
-    .legend-color { width: 18px; height: 18px; border-radius: 4px; }
-    
+    .progress-bar-fill { width: 0%; height: 100%; background: linear-gradient(90deg, var(--accent-green-dark), var(--accent-green)); box-shadow: 0 0 15px var(--accent-green); border-radius: 10px; transition: width 2s cubic-bezier(0.25, 1, 0.5, 1) 0.3s; }
     .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
     .gallery-item { background-color: var(--card-bg); border-radius: 20px; overflow: hidden; text-decoration: none; color: var(--text-primary); position: relative; transform: translateY(0); transition: transform 0.4s ease, box-shadow 0.4s ease; }
     .gallery-item:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
@@ -158,34 +156,10 @@
     .gallery-item:hover .gallery-arrow { background-color: var(--accent-color); color: var(--bg-color); transform: scale(1.1); }
     .gallery-item-permanent-title { position: absolute; bottom: 20px; left: 20px; font-weight: 700; background: rgba(0,0,0,0.5); padding: 5px 12px; border-radius: 10px; transition: opacity 0.4s ease; }
     .gallery-item:hover .gallery-item-permanent-title { opacity: 0; }
-    .timer-section { text-align: center; }
-    .timer-container { display: flex; justify-content: center; gap: 25px; margin-top: 30px; }
-    .timer-box { min-width: 100px; }
-    .timer-box .time { font-size: 56px; font-weight: 800; line-height: 1; }
-    .timer-box .label { font-size: 16px; color: var(--text-secondary); margin-top: 10px; text-transform: uppercase; letter-spacing: 1px; }
-    .timer-finished-message { font-size: 32px; font-weight: 700; color: #22c55e; }
     blockquote { font-size: 36px; font-weight: 700; line-height: 1.4; max-width: 800px; margin: 0 auto 25px; border: none; text-align: center; }
     .quote-section footer { color: var(--text-secondary); text-align: center; font-style: italic; }
     .mobile-nav-toggle { display: none; }
-    
-    /* === МОБИЛЬНАЯ АДАПТАЦИЯ КАРТЫ === */
     @media (max-width: 768px) {
-        .map-grid-container { padding: 0; }
-        .map-grid {
-            display: flex;
-            flex-direction: column;
-            height: auto;
-            gap: 5px;
-        }
-        .map-zone {
-            min-height: 80px;
-            font-size: 16px;
-            border-radius: 0; /* Убираем скругление для вида списка */
-        }
-        .map-grid-container {
-             border-radius: 0;
-        }
-
         .header { padding: 15px 0; }
         .header-container { padding: 0 15px; }
         .mobile-nav-toggle { display: block; width: 30px; height: 24px; background: none; border: none; padding: 0; cursor: pointer; z-index: 1001; }
@@ -211,14 +185,34 @@
         .section-subtitle { margin-bottom: 40px; }
         .gallery { grid-template-columns: 1fr; gap: 20px; }
         .gallery-item img { height: 300px; }
-        .timer-container { gap: 15px; flex-wrap: wrap; }
-        .timer-box { min-width: 80px; }
-        .timer-box .time { font-size: 40px; }
         blockquote { font-size: 24px; }
     }
 </style>
 </head>
 <body>
+
+<!-- Элементы для звездного неба -->
+<div id="stars-container">
+    <div id="stars1" class="stars"></div>
+    <div id="stars2" class="stars"></div>
+    <div id="stars3" class="stars"></div>
+</div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+
+<!-- Плашка "В разработке" (по умолчанию скрыта) -->
+<div id="splash-screen" style="display: none;">
+    <div class="splash-content">
+        <svg class="splash-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <h2>Сайт в разработке</h2>
+        <p>Эта страница все еще находится в процессе создания. Некоторые функции могут отсутствовать или работать некорректно. Спасибо за ваше терпение!</p>
+        <a href="#" class="splash-button" id="close-splash">Продолжить</a>
+    </div>
+</div>
 
 <header class="header">
     <div class="header-container">
@@ -226,9 +220,8 @@
         <div class="nav-wrapper">
             <nav class="nav">
                 <a href="#progress">Прогресс</a>
-                <a href="#safety-map">Карта</a>
                 <a href="#gallery">Этапы</a>
-                <a href="#timer">Ожидание</a>
+                <a href="#quote">О Доме</a>
             </nav>
             <a href="#" class="cta-button">Связаться</a>
         </div>
@@ -261,38 +254,12 @@
             </div>
         </section>
 
-        <!-- Новая секция с картой -->
-        <section id="safety-map" class="reveal">
-            <h2 class="section-title">Карта Участка</h2>
-            <p class="section-subtitle">Интерактивная схема текущего состояния территории. Наведите на зону, чтобы узнать ее статус.</p>
-            <div class="map-grid-container">
-                <div class="map-grid">
-                    <div id="map-gazon-ne-sdelan" class="map-zone zone-caution" data-tooltip="Территория под газон: не выровнена, требует подготовки">Газон не сделан</div>
-                    <div id="map-glina-left" class="map-zone zone-caution" data-tooltip="Боковая зона: глина и остатки строительного мусора">Глина с мусором</div>
-                    <div id="map-sklad-musora" class="map-zone zone-danger" data-tooltip="Склад мусора: Контейнеры для строительных отходов. Вход воспрещен!">Склад мусора</div>
-                    <div id="map-dorozhki" class="map-zone zone-safe" data-tooltip="Дорожки: Уложена плитка, можно свободно ходить">Дорожки</div>
-                    <div id="map-vyezd" class="map-zone zone-safe" data-tooltip="Въезд на участок: Полностью готов и безопасен для проезда и прохода">Въезд</div>
-                    <div id="map-glina-top" class="map-zone zone-danger" data-tooltip="Дальняя зона: Глина и строительный мусор. Вход строго воспрещен!">Глина с мусором</div>
-                    <div id="map-pesok" class="map-zone zone-caution" data-tooltip="Песок: Неочищенный строительный песок. Ходить с осторожностью.">Неочищенный песок</div>
-                    <div id="map-kacheli" class="map-zone zone-caution" data-tooltip="Качели: Установлены, но территория вокруг не облагорожена.">Качели</div>
-                    <div id="map-voleybol" class="map-zone zone-caution" data-tooltip="Площадка для волейбола: Основа готова, требуется засыпка чистого песка.">Площадка для волейбола</div>
-                    <div id="map-sklad-dosok" class="map-zone zone-danger" data-tooltip="Склад материалов: Остатки досок и другие стройматериалы. Опасно!">Куча песка и глины, склад досок</div>
-                    <div id="map-gazon-bottom" class="map-zone zone-danger" data-tooltip="Южный газон: Территория не подготовлена. Вход воспрещен!">Газон</div>
-                </div>
-            </div>
-            <div class="map-legend">
-                <div class="legend-item"><div class="legend-color" style="background-color: var(--zone-safe-new);"></div><span>Безопасная зона</span></div>
-                <div class="legend-item"><div class="legend-color" style="background-color: var(--zone-caution-new);"></div><span>Зона осторожности</span></div>
-                <div class="legend-item"><div class="legend-color" style="background-color: var(--zone-danger-new);"></div><span>Опасная зона</span></div>
-            </div>
-        </section>
-
         <section id="gallery" class="reveal">
             <h2 class="section-title">Завершенные Этапы</h2>
             <p class="section-subtitle">Ключевые моменты строительства, которые мы уже прошли вместе.</p>
             
             <div class="gallery">
-                 <a href="#" class="gallery-item">
+                <a href="#" class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1579402569724-c112a95c9861?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" alt="Фундамент" loading="eager">
                     <div class="gallery-item-permanent-title">Фундамент</div>
                     <div class="gallery-item-content">
@@ -319,12 +286,6 @@
             </div>
         </section>
         
-        <section id="timer" class="timer-section widget-card reveal">
-             <h2 class="section-title" style="font-size: 36px;">Ожидаем газон</h2>
-             <p class="section-subtitle" style="margin: 0 auto;">Обратный отсчет до идеальной зеленой лужайки!</p>
-             <div class="timer-container" id="timer-container"></div>
-        </section>
-
         <section id="quote" class="quote-section reveal">
             <blockquote>«Мы строим не просто стены из кирпича, а место, куда всегда хочется возвращаться.»</blockquote>
             <footer>— Владельцы будущего дома</footer>
@@ -334,8 +295,32 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const constructionProgress = 55;
-    const targetDate = new Date('Aug 3, 2025 00:00:00').getTime();
+    // 1. Шкала прогресса. Просто измените значение этой переменной.
+    const constructionProgress = 55; // <-- ИЗМЕНИТЕ ЭТО ЗНАЧЕНИЕ (от 0 до 100)
+    
+    // --- Логика плашки "В разработке" ---
+    const splashScreen = document.getElementById('splash-screen');
+    const closeSplashButton = document.getElementById('close-splash');
+    
+    let visitCount = localStorage.getItem('visitCount') || 0;
+    visitCount = parseInt(visitCount) + 1;
+
+    // Показываем плашку каждый 5-й раз
+    if (visitCount % 5 === 0) {
+        splashScreen.style.display = 'flex';
+        document.body.classList.add('splash-open');
+    }
+    
+    localStorage.setItem('visitCount', visitCount);
+
+    closeSplashButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        splashScreen.classList.add('hidden');
+        document.body.classList.remove('splash-open');
+    });
+
+
+    // --- Остальная логика страницы ---
     const revealElements = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -345,6 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.1 });
     revealElements.forEach(el => observer.observe(el));
+    
     const progressBarFill = document.getElementById('progress-bar-fill');
     const progressText = document.getElementById('progress-text');
     if(progressBarFill && progressText) {
@@ -353,32 +339,11 @@ document.addEventListener('DOMContentLoaded', () => {
             progressText.textContent = constructionProgress + '%';
         }, 300);
     }
-    const timerContainer = document.getElementById('timer-container');
-    const timerInterval = setInterval(() => {
-        const now = new Date().getTime();
-        const distance = targetDate - now;
-        if (distance < 0) {
-            clearInterval(timerInterval);
-            timerContainer.innerHTML = `<span class="timer-finished-message">Газон взошел! 🌱</span>`;
-            return;
-        }
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        const formatTime = (time) => time < 10 ? `0${time}` : time;
-        timerContainer.innerHTML = `
-            <div class="timer-box"><span class="time">${days}</span><span class="label">Дней</span></div>
-            <div class="timer-box"><span class="time">${formatTime(hours)}</span><span class="label">Часов</span></div>
-            <div class="timer-box"><span class="time">${formatTime(minutes)}</span><span class="label">Минут</span></div>
-            <div class="timer-box"><span class="time">${formatTime(seconds)}</span><span class="label">Секунд</span></div>
-        `;
-    }, 1000);
+
     const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-    const body = document.body;
     if (mobileNavToggle) {
         mobileNavToggle.addEventListener('click', () => {
-            body.classList.toggle('nav-open');
+            document.body.classList.toggle('nav-open');
         });
     }
 });
